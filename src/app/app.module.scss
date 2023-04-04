@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu:200,300,400,500,600,700,800&display=swap');
 
-
-.app {
-  background-color: var(--bg-color);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Ubuntu';
 }
