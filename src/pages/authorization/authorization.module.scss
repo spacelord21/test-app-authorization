@@ -1,3 +1,16 @@
 $bg-color: #f2f2f2;
 $form-color: #fff;
 $spacing: 16px;
+@import "theme";
+
+.wrapper {
+  background-color: $color;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+

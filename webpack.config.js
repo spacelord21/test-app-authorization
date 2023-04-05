@@ -3,7 +3,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const { SourceMapDevToolPlugin } = require("webpack");
-
+const { create } = require("sass-alias");
 
 module.exports = {
   mode: "development",
@@ -35,11 +35,18 @@ module.exports = {
         use: ["style-loader", "css-loader"],
       },
       {
-        test: /\.s[ac]ss$/i,
+        test: /^.*\.(sass|scss)$/,
         use: [
           "style-loader",
           "css-loader",
-          "sass-loader"
+          {
+            loader: "sass-loader",
+            options: {
+              sassOptions: {
+                includePaths: [path.resolve(__dirname, "src/shared/ui/theme/")]
+              }
+            }
+          }
         ],
       }
     ]
