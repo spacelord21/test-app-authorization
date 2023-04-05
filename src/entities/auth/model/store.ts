@@ -1,11 +1,18 @@
-import { createEffect, createEvent, createStore, forward } from "effector";
+import {
+  createEffect,
+  createEvent,
+  createStore,
+  forward,
+  sample,
+} from "effector";
 import { TAuth, TAuthModel } from "../types";
 import { login } from "../api";
+import { DEFAULT_ALERT_TIMEOUT, createAlert } from "@entities/alert";
 
 export const setNumber = createEvent<string>();
 export const setPassword = createEvent<string>();
 export const setRemember = createEvent<void>();
-export const sendAuthData = createEvent<TAuth>();
+export const sendAuthData = createEvent();
 const sendAuthDataFx = createEffect<TAuth, TAuthModel, Error>(
   async (authParams) => {
     return await login(authParams);
@@ -22,7 +29,10 @@ export const $rememberMe = createStore(false).on(
   (state, _) => !state
 );
 
-forward({
-  from: sendAuthData,
-  to: sendAuthDataFx,
+sendAuthDataFx.failData.watch((payload) => {
+  createAlert({
+    message: payload.message,
+    timeout: DEFAULT_ALERT_TIMEOUT,
+    type: "ERROR",
+  });
 });

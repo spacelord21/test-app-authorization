@@ -13,6 +13,7 @@
     "@types/node": "^16.18.23",
     "@types/react": "^18.0.33",
     "@types/react-dom": "^18.0.11",
+    "classnames": "^2.3.2",
     "compose-function": "^3.0.3",
     "css-loader": "^6.7.3",
     "effector": "^22.7.0",
