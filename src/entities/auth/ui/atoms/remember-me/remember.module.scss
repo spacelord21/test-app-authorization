@@ -1,0 +1,43 @@
+.wrapper {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  -webkit-user-select: none; 
+  -webkit-touch-callout: none; 
+  -moz-user-select: none; 
+  -ms-user-select: none; 
+  user-select: none;
+  margin-top: 16px;
+  align-self: start;
+}
+
+.checkbox {
+  display: none;
+}
+
+.label {
+  font-size: 16px;
+  color: #999;
+  width: auto;
+  display: flex;
+  flex-direction: row;
+}
+
+.fakeCheckbox {
+  height: 18px;
+  width: 18px;
+  border: 2px solid #827ffe;
+  position: relative;
+  background-color:#FFF;
+  border-radius:2px;
+  padding:3px;
+  margin-right: 16px;
+}
+[type=checkbox]:checked + .fakeCheckbox:before {
+  content: '\2714';
+  position: absolute;
+  top: -6px;
+  left: 1px;
+  font-size:17px;
+  color: #827ffe;
+}
