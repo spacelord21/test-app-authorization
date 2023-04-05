@@ -58,6 +58,7 @@
     ]
   },
   "devDependencies": {
+    "@iconify/react": "^4.1.0",
     "@types/compose-function": "^0.0.30",
     "@types/react-router": "^5.1.20",
     "@types/react-router-dom": "^5.3.3",

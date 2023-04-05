@@ -2,7 +2,7 @@ import { Event } from "effector";
 import styles from "./input.module.scss";
 
 type TInputProps = {
-  type: string;
+  type: "text" | "password";
   value: string;
   setValue: Event<string>;
   placeholder: string;

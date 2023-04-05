@@ -2,6 +2,7 @@ import {
   $number,
   $password,
   Form,
+  PasswordInput,
   References,
   RememberMe,
   setNumber,
@@ -28,12 +29,7 @@ export const Authorization = () => {
               type="text"
               value={number}
             />,
-            <Input
-              placeholder="Пароль"
-              setValue={setPassword}
-              type="password"
-              value={password}
-            />,
+            <PasswordInput />,
           ]}
           title="Авторизация"
           rememberMe={<RememberMe />}
