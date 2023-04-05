@@ -1,12 +1,10 @@
 import {
   $number,
-  $password,
   Form,
   PasswordInput,
   References,
   RememberMe,
   setNumber,
-  setPassword,
 } from "@entities/auth";
 import styles from "./authorization.module.scss";
 import { useStore } from "effector-react";
@@ -14,7 +12,7 @@ import { Input, PrimaryButton } from "@shared/ui";
 
 export const Authorization = () => {
   const number = useStore($number);
-  const password = useStore($password);
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
@@ -24,10 +22,11 @@ export const Authorization = () => {
           }
           inputs={[
             <Input
-              placeholder="Телефон"
+              placeholder="Номер"
               setValue={setNumber}
-              type="text"
               value={number}
+              type="text"
+              isPhone={true}
             />,
             <PasswordInput />,
           ]}
