@@ -1,26 +1,31 @@
-import {
-  $number,
-  Form,
-  PasswordInput,
-  References,
-  setNumber,
-} from "@entities/auth";
+import { Form, PasswordInput, References } from "@entities/auth";
 import styles from "./registration.module.scss";
 import { Input, PrimaryButton } from "@shared/ui";
 import { useStore } from "effector-react";
 import {
   $firstName,
   $lastName,
+  $registNumber,
+  $registPassword,
+  sendRegist,
   sendRegistFx,
   setFirstName,
   setLastName,
+  setNumber,
+  setPassword,
 } from "@entities/auth/model/registration";
 
 export const Registration = () => {
   const isPending = useStore(sendRegistFx.pending);
-  const number = useStore($number);
+  const password = useStore($registPassword);
+  const number = useStore($registNumber);
   const firstName = useStore($firstName);
   const lastName = useStore($lastName);
+
+  const onClickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    sendRegist();
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -29,7 +34,7 @@ export const Registration = () => {
           button={
             <PrimaryButton
               content={"Зарегистрироваться"}
-              onClick={() => {}}
+              onClick={onClickHandler}
               disabled={isPending}
             />
           }
@@ -53,7 +58,7 @@ export const Registration = () => {
               type="text"
               isPhone={true}
             />,
-            <PasswordInput />,
+            <PasswordInput password={password} setPassword={setPassword} />,
           ]}
           title="Регистрация"
           references={
