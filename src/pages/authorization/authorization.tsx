@@ -1,5 +1,6 @@
 import {
   $number,
+  $password,
   Form,
   PasswordInput,
   References,
@@ -7,6 +8,7 @@ import {
   sendAuthData,
   sendAuthDataFx,
   setNumber,
+  setPassword,
 } from "@entities/auth";
 import styles from "./authorization.module.scss";
 import { useStore } from "effector-react";
@@ -15,6 +17,7 @@ import { useNavigate } from "react-router";
 
 export const Authorization = () => {
   const number = useStore($number);
+  const password = useStore($password);
   const isPending = useStore(sendAuthDataFx.pending);
   const navigate = useNavigate();
 
@@ -48,7 +51,7 @@ export const Authorization = () => {
               type="text"
               isPhone={true}
             />,
-            <PasswordInput />,
+            <PasswordInput password={password} setPassword={setPassword} />,
           ]}
           title="Авторизация"
           rememberMe={<RememberMe />}
