@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "./password.module.scss";
 import { useStore } from "effector-react";
-import { $password, setPassword } from "@entities/auth/model";
+import { $password, setPassword } from "@entities/auth/model/authorization";
 import { PasswordEye } from "@features/password-eye";
 
 export const PasswordInput = () => {

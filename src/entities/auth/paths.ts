@@ -5,4 +5,8 @@ export const paths = {
     method: "POST",
     path: AUTH_URL + "/api/auth/login",
   },
+  signin: {
+    method: "POST",
+    path: AUTH_URL + "/api/user/registration",
+  },
 };

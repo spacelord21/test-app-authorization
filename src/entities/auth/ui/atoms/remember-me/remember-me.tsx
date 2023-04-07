@@ -1,6 +1,6 @@
 import { useStore } from "effector-react";
 import styles from "./remember.module.scss";
-import { $rememberMe, setRemember } from "@entities/auth/model";
+import { $rememberMe, setRemember } from "@entities/auth/model/authorization";
 
 export const RememberMe = () => {
   const rememberMe = useStore($rememberMe);

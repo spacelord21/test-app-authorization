@@ -7,10 +7,17 @@ const AuthorizationPage = lazy(() =>
   }))
 );
 
+const RegistrationPage = lazy(() =>
+  import("./registration").then(({ Registration }) => ({
+    default: Registration,
+  }))
+);
+
 export const Routing = () => {
   return (
     <Routes>
       <Route path="/" element={<AuthorizationPage />} />
+      <Route path="/registration" element={<RegistrationPage />} />
     </Routes>
   );
 };
