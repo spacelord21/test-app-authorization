@@ -1,7 +1,11 @@
 import { signIn } from "@entities/auth/api";
 import { TRegistResponse, TRegistUser } from "@entities/auth/types";
 import { createEffect, createEvent, createStore, sample } from "effector";
-import { DEFAULT_ALERT_TIMEOUT, createAlert } from "@entities/alert";
+import {
+  DEFAULT_ALERT_TIMEOUT,
+  createAlert,
+  removeAlert,
+} from "@entities/alert";
 import { persist } from "effector-storage/session";
 
 const FIRSTNAME_KEY = "firstname";
@@ -70,10 +74,21 @@ sample({
 
 sendRegistFx.doneData.watch((payload) => {
   if (!payload.success) {
-    createAlert({
-      message: payload.message!,
-      timeout: DEFAULT_ALERT_TIMEOUT,
-      type: "ERROR",
+    payload.errors?.forEach(({ msg, param }, index) => {
+      const text =
+        param === "first_name"
+          ? "имени"
+          : param === "last_name"
+          ? "фамилии"
+          : null;
+
+      createAlert({
+        message: text
+          ? msg.replace("поля", text).replace("длинна", "длина")
+          : msg,
+        timeout: Math.floor(DEFAULT_ALERT_TIMEOUT / 3),
+        type: "ERROR",
+      });
     });
   }
 });

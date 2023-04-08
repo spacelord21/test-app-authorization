@@ -57,11 +57,21 @@ sample({
 
 sendAuthDataFx.doneData.watch((payload) => {
   if (!payload.success) {
-    createAlert({
-      message: payload.message!,
-      timeout: DEFAULT_ALERT_TIMEOUT,
-      type: "ERROR",
-    });
+    if (payload.errors) {
+      payload.errors?.map((error) => {
+        createAlert({
+          message: error.msg!,
+          timeout: DEFAULT_ALERT_TIMEOUT / 3,
+          type: "ERROR",
+        });
+      });
+    } else {
+      createAlert({
+        message: payload.message!,
+        timeout: DEFAULT_ALERT_TIMEOUT / 3,
+        type: "ERROR",
+      });
+    }
   } else {
     setToken(payload.token!);
   }

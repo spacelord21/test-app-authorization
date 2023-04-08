@@ -14,6 +14,7 @@ import {
   setNumber,
   setPassword,
 } from "@entities/auth/model/registration";
+import { $alerts } from "@entities/alert";
 
 export const Registration = () => {
   const isPending = useStore(sendRegistFx.pending);
@@ -21,6 +22,30 @@ export const Registration = () => {
   const number = useStore($registNumber);
   const firstName = useStore($firstName);
   const lastName = useStore($lastName);
+  const alerts = useStore($alerts);
+
+  const inputs = [
+    <Input
+      placeholder="Имя"
+      setValue={setFirstName}
+      type="text"
+      value={firstName}
+    />,
+    <Input
+      placeholder="Фамилия"
+      setValue={setLastName}
+      type="text"
+      value={lastName}
+    />,
+    <Input
+      placeholder="Номер"
+      setValue={setNumber}
+      value={number}
+      type="text"
+      isPhone={true}
+    />,
+    <PasswordInput password={password} setPassword={setPassword} />,
+  ];
 
   const onClickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -35,31 +60,10 @@ export const Registration = () => {
             <PrimaryButton
               content={"Зарегистрироваться"}
               onClick={onClickHandler}
-              disabled={isPending}
+              disabled={isPending || alerts.length > 0}
             />
           }
-          inputs={[
-            <Input
-              placeholder="Имя"
-              setValue={setFirstName}
-              type="text"
-              value={firstName}
-            />,
-            <Input
-              placeholder="Фамилия"
-              setValue={setLastName}
-              type="text"
-              value={lastName}
-            />,
-            <Input
-              placeholder="Номер"
-              setValue={setNumber}
-              value={number}
-              type="text"
-              isPhone={true}
-            />,
-            <PasswordInput password={password} setPassword={setPassword} />,
-          ]}
+          inputs={inputs}
           title="Регистрация"
           references={
             <References references={[{ link: "/", title: "Авторизация" }]} />

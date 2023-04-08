@@ -14,12 +14,14 @@ import styles from "./authorization.module.scss";
 import { useStore } from "effector-react";
 import { Input, PrimaryButton } from "@shared/ui";
 import { useNavigate } from "react-router";
+import { $alerts } from "@entities/alert";
 
 export const Authorization = () => {
   const number = useStore($number);
   const password = useStore($password);
   const isPending = useStore(sendAuthDataFx.pending);
   const navigate = useNavigate();
+  const alerts = useStore($alerts);
 
   sendAuthDataFx.doneData.watch((payload) => {
     if (payload.success) {
@@ -40,7 +42,7 @@ export const Authorization = () => {
             <PrimaryButton
               content={"Авторизоваться"}
               onClick={handleClick}
-              disabled={isPending}
+              disabled={isPending || alerts.length > 0}
             />
           }
           inputs={[
