@@ -1,13 +1,13 @@
-.container {
+.avatarWrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  
 }
 
 .title {
   font-size: 30px;
+  margin-bottom: 32px;
   color: #403866;
   line-height: 1.2;
   text-transform: uppercase;

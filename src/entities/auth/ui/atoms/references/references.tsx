@@ -11,7 +11,12 @@ type TReferencesProps = {
 export const References = ({ references }: TReferencesProps) => {
   const navigate = useNavigate();
   return (
-    <div className={styles.wrapper}>
+    <div
+      className={styles.wrapper}
+      style={{
+        justifyContent: references.length > 1 ? "space-between" : "center",
+      }}
+    >
       {references.map((item, index) => (
         <span
           className={styles.text}

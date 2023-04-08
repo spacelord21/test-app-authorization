@@ -37,35 +37,37 @@ export const Authorization = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
-        <Form
-          button={
-            <PrimaryButton
-              content={"Авторизоваться"}
-              onClick={handleClick}
-              disabled={isPending || alerts.length > 0}
-            />
-          }
-          inputs={[
-            <Input
-              placeholder="Номер"
-              setValue={setNumber}
-              value={number}
-              type="text"
-              isPhone={true}
-            />,
-            <PasswordInput password={password} setPassword={setPassword} />,
-          ]}
-          title="Авторизация"
-          rememberMe={<RememberMe />}
-          references={
-            <References
-              references={[
-                { title: "Забыли пароль?", link: "" },
-                { link: "/registration", title: "Регистрация" },
-              ]}
-            />
-          }
-        />
+        <div className={styles.formWrapper}>
+          <Form
+            button={
+              <PrimaryButton
+                content={"Авторизоваться"}
+                onClick={handleClick}
+                disabled={isPending || alerts.length > 0}
+              />
+            }
+            inputs={[
+              <Input
+                placeholder="Номер"
+                setValue={setNumber}
+                value={number}
+                type="text"
+                isPhone={true}
+              />,
+              <PasswordInput password={password} setPassword={setPassword} />,
+            ]}
+            title="Авторизация"
+            rememberMe={<RememberMe />}
+            references={
+              <References
+                references={[
+                  { title: "Забыли пароль?", link: "" },
+                  { link: "/registration", title: "Регистрация" },
+                ]}
+              />
+            }
+          />
+        </div>
       </div>
     </div>
   );
