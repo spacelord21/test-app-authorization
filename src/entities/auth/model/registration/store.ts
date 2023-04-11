@@ -1,11 +1,7 @@
 import { signIn } from "@entities/auth/api";
 import { TRegistResponse, TRegistUser } from "@entities/auth/types";
 import { createEffect, createEvent, createStore, sample } from "effector";
-import {
-  DEFAULT_ALERT_TIMEOUT,
-  createAlert,
-  removeAlert,
-} from "@entities/alert";
+import { DEFAULT_ALERT_TIMEOUT, createAlert } from "@entities/alert";
 import { persist } from "effector-storage/session";
 
 const FIRSTNAME_KEY = "firstname";

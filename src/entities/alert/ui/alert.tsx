@@ -5,7 +5,6 @@ import classNames from "classnames/bind";
 import { Icon } from "@iconify/react";
 import { useEffect, useRef } from "react";
 
-let cx = classNames.bind(styles);
 let timeout: ReturnType<typeof setTimeout>;
 let defaultTimeout = 500;
 

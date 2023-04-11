@@ -8,6 +8,7 @@ type TInputProps = {
   setValue: Event<string> | ((value: string) => void);
   placeholder: string;
   isPhone?: boolean;
+  label?: string;
 };
 
 export const Input = ({
@@ -16,16 +17,18 @@ export const Input = ({
   value,
   placeholder,
   isPhone,
+  label,
 }: TInputProps) => {
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setValue(e.target.value);
   };
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapperInput}>
+      {label ? <span className={styles.labelInput}>*{label}</span> : null}
       {isPhone ? (
         <InputMask
-          value={value}
+          value={value.trim()}
           mask={"9 999 999 99 99"}
           className={styles.input}
           placeholder={placeholder}

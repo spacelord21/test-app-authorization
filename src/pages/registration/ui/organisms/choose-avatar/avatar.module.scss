@@ -1,14 +1,18 @@
+@import "theme";
+
 .avatarWrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  width: 90%;
 }
+ 
 
 .title {
   font-size: 30px;
-  margin-bottom: 32px;
-  color: #403866;
+  margin-bottom: spacing(2);
+  color: map-get($map: $accent, $key: secondary);
   line-height: 1.2;
   text-transform: uppercase;
   text-align: center;

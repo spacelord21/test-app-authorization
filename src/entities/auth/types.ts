@@ -43,3 +43,5 @@ export type TForgotEnd = {
 };
 
 export type TForgotEndResponse = TForgotStartResponse & { token?: string };
+
+export type TUserInfo = TRegistUser;

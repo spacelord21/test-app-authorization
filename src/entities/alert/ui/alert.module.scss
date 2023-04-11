@@ -1,3 +1,4 @@
+@import "theme";
 
 @media screen {
   $width: 300px;
@@ -27,6 +28,7 @@
   top: 16px;
   font-size: 16px;
   padding: 16px;
+  z-index: 1000;
 }
 
 @keyframes popup {
@@ -57,15 +59,15 @@
 }
 
 .error {
-  background-color: #ef5350;
+  background-color: map-get($map: $accent, $key: error);
 }
 
 .success {
-  background-color: #827ffe;
+  background-color: map-get($map: $accent, $key: success);
 }
 
 .warning {
-  background-color: #cddc39;
+  background-color: map-get($map: $accent, $key: warning);
 }
 
 [type="checkbox"] {

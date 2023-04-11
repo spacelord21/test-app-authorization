@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import styles from "./registration.module.scss";
 import { ChooseAvatar, FormTemplate } from "./ui";
 import { sendRegistFx } from "@entities/auth/model/registration";

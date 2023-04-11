@@ -1,12 +1,14 @@
+@import "theme";
+
 .wrapper {
-  padding-top: 32px;
-  padding-bottom: 16px;
+  padding-top: spacing(2);
+  padding-bottom: spacing(1);
   width: 100%;
 }
 
 .button {
   font-size: 16px;
-  color: #fff;
+  color: map-get($map: $accent, $key: textPrimary);
   line-height: 1.2;
   text-transform: uppercase;
   display: -webkit-box;
@@ -16,10 +18,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 20px;
+  padding: 0 spacing(1);
   width: 100%;
   height: 62px;
-  background-color: #827ffe;
+  background-color: map-get($map: $accent, $key: primary);
   border-radius: 3px;
   -webkit-transition: all .4s;
   -o-transition: all .4s;
@@ -29,10 +31,13 @@
 }
 
 .button:hover, .button:disabled {
-  background-color: #403866;
+  background-color: map-get($map: $accent, $key: secondary);
 }
 
 .button:disabled {
   cursor: not-allowed;
 }
 
+.button:not(:active) {
+  background-color: map-get($map: $accent, $key: primary);
+}

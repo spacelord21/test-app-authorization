@@ -1,4 +1,4 @@
-import { ReactNode, RefObject } from "react";
+import { ReactNode } from "react";
 import styles from "./button.module.scss";
 
 type TPrimaryButtonProps = {

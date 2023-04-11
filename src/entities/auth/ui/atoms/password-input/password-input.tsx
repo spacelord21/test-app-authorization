@@ -7,12 +7,14 @@ type TPassInputProps = {
   password: string;
   setPassword: Event<string> | ((value: string) => void);
   placeholder?: string;
+  label?: string;
 };
 
 export const PasswordInput = ({
   password,
   setPassword,
   placeholder,
+  label,
 }: TPassInputProps) => {
   const [passwordType, setPasswordType] = useState<"password" | "text">(
     "password"
@@ -24,7 +26,10 @@ export const PasswordInput = ({
   };
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapperInput}>
+      {label && password.length < 8 ? (
+        <span className={styles.labelInput}>*{label}</span>
+      ) : null}
       <div className={styles.container}>
         <input
           className={styles.input}
