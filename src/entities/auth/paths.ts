@@ -9,4 +9,12 @@ export const paths = {
     method: "POST",
     path: AUTH_URL + "/api/user/registration",
   },
+  forgotStart: {
+    method: "POST",
+    path: AUTH_URL + "/api/user/forgot-start",
+  },
+  forgotEnd: {
+    method: "POST",
+    path: AUTH_URL + "/api/user/forgot-end",
+  },
 };

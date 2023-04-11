@@ -7,6 +7,7 @@ type TFormProps = {
   button: ReactNode;
   rememberMe?: ReactNode;
   references?: ReactNode;
+  additional?: ReactNode[];
 };
 
 export const Form = ({
@@ -15,6 +16,7 @@ export const Form = ({
   title,
   references,
   rememberMe,
+  additional,
 }: TFormProps) => {
   return (
     <div className={styles.container}>
@@ -27,6 +29,7 @@ export const Form = ({
       {rememberMe}
       {button}
       {references}
+      {additional}
     </div>
   );
 };

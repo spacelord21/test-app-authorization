@@ -5,10 +5,15 @@ import { Event } from "effector";
 
 type TPassInputProps = {
   password: string;
-  setPassword: Event<string>;
+  setPassword: Event<string> | ((value: string) => void);
+  placeholder?: string;
 };
 
-export const PasswordInput = ({ password, setPassword }: TPassInputProps) => {
+export const PasswordInput = ({
+  password,
+  setPassword,
+  placeholder,
+}: TPassInputProps) => {
   const [passwordType, setPasswordType] = useState<"password" | "text">(
     "password"
   );
@@ -26,7 +31,7 @@ export const PasswordInput = ({ password, setPassword }: TPassInputProps) => {
           type={passwordType}
           value={password}
           onChange={onCnahgeHandler}
-          placeholder="Пароль"
+          placeholder={placeholder ?? "Пароль"}
         />
         {password ? (
           <PasswordEye setType={setPasswordType} type={passwordType} />

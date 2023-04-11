@@ -61,7 +61,7 @@ export const Authorization = () => {
             references={
               <References
                 references={[
-                  { title: "Забыли пароль?", link: "" },
+                  { title: "Забыли пароль?", link: "/password-recovery" },
                   { link: "/registration", title: "Регистрация" },
                 ]}
               />
