@@ -5,7 +5,7 @@ import InputMask from "react-input-mask";
 type TInputProps = {
   type: "text" | "password";
   value: string;
-  setValue: Event<string>;
+  setValue: Event<string> | ((value: string) => void);
   placeholder: string;
   isPhone?: boolean;
 };

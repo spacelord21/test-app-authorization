@@ -13,11 +13,18 @@ const RegistrationPage = lazy(() =>
   }))
 );
 
+const PasswordRecoveryPage = lazy(() =>
+  import("./password-recovery").then(({ PasswordRecovery }) => ({
+    default: PasswordRecovery,
+  }))
+);
+
 export const Routing = () => {
   return (
     <Routes>
       <Route path="/" element={<AuthorizationPage />} />
       <Route path="/registration" element={<RegistrationPage />} />
+      <Route path="/password-recovery" element={<PasswordRecoveryPage />} />
     </Routes>
   );
 };
