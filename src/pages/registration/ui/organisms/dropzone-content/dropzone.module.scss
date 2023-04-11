@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.input {
+  visibility: hidden;
+  height: 0;
+}
+
+.wrapper {
+  background-color: transparent;
+  border-radius: 100%;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  
+}
+
+.active, .inactive {
+  opacity: 0.8;
+  transition: .4s linear background-color;
+}
+
+.inactive {
+  background-color: #e6e6e6;
+}
+
+.active {
+  background-color: #827ffe;
+}
+
+label {
+  width: 100%;
+  text-align: center;
+}

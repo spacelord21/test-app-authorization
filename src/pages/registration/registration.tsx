@@ -1,65 +1,23 @@
-import {
-  $number,
-  Form,
-  PasswordInput,
-  References,
-  setNumber,
-} from "@entities/auth";
+import { useRef, useState } from "react";
 import styles from "./registration.module.scss";
-import { Input, PrimaryButton } from "@shared/ui";
-import { useStore } from "effector-react";
-import {
-  $firstName,
-  $lastName,
-  sendRegistFx,
-  setFirstName,
-  setLastName,
-} from "@entities/auth/model/registration";
+import { ChooseAvatar, FormTemplate } from "./ui";
+import { sendRegistFx } from "@entities/auth/model/registration";
 
 export const Registration = () => {
-  const isPending = useStore(sendRegistFx.pending);
-  const number = useStore($number);
-  const firstName = useStore($firstName);
-  const lastName = useStore($lastName);
+  const [success, setSuccess] = useState(false);
+
+  sendRegistFx.doneData.watch((payload) => {
+    if (payload.success) {
+      setSuccess(true);
+    }
+  });
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
-        <Form
-          button={
-            <PrimaryButton
-              content={"Зарегистрироваться"}
-              onClick={() => {}}
-              disabled={isPending}
-            />
-          }
-          inputs={[
-            <Input
-              placeholder="Имя"
-              setValue={setFirstName}
-              type="text"
-              value={firstName}
-            />,
-            <Input
-              placeholder="Фамилия"
-              setValue={setLastName}
-              type="text"
-              value={lastName}
-            />,
-            <Input
-              placeholder="Номер"
-              setValue={setNumber}
-              value={number}
-              type="text"
-              isPhone={true}
-            />,
-            <PasswordInput />,
-          ]}
-          title="Регистрация"
-          references={
-            <References references={[{ link: "/", title: "Авторизация" }]} />
-          }
-        />
+        <div className={styles.formWrapper}>
+          {success ? <ChooseAvatar /> : <FormTemplate />}
+        </div>
       </div>
     </div>
   );

@@ -1,0 +1,36 @@
+.image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.inactive {
+  opacity: 0;
+}
+
+.active { 
+  opacity: 0.5;
+  
+}
+
+.container {
+  position: relative;
+}
+
+.icon,.active {
+  color: #fff;
+}
+
+.active, .inactive {
+  transition: 0.4s linear opacity;
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #232831;
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+}

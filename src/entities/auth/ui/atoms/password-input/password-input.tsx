@@ -1,14 +1,17 @@
 import { useState } from "react";
 import styles from "./password.module.scss";
-import { useStore } from "effector-react";
-import { $password, setPassword } from "@entities/auth/model/authorization";
 import { PasswordEye } from "@features/password-eye";
+import { Event } from "effector";
 
-export const PasswordInput = () => {
+type TPassInputProps = {
+  password: string;
+  setPassword: Event<string>;
+};
+
+export const PasswordInput = ({ password, setPassword }: TPassInputProps) => {
   const [passwordType, setPasswordType] = useState<"password" | "text">(
     "password"
   );
-  const password = useStore($password);
 
   const onCnahgeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();

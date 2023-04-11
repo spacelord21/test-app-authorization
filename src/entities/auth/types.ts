@@ -7,7 +7,7 @@ export type TAuthModel = {
   success: boolean;
   token?: string;
   message?: string;
-  errors?: string[];
+  errors?: TError[];
 };
 
 export type TRegistUser = {
@@ -15,6 +15,13 @@ export type TRegistUser = {
   password: string;
   firstName: string;
   lastName: string;
+};
+
+type TError = {
+  value: string;
+  msg: string;
+  param: string;
+  location: string;
 };
 
 export type TRegistResponse = Partial<TAuthModel>;
