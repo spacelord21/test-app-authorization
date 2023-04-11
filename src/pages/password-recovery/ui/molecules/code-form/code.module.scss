@@ -1,16 +1,18 @@
+@import "theme";
+
 .timer {
   font-size: 16px;
   color: #827ffe;
   line-height: 1.4;
   cursor: pointer;
   max-width: 250px;
+  background-color: transparent;
 }
 
 .timer:hover {
-  color: #403866;
+  color: map-get($map: $accent, $key: secondary);
 }
 
 :disabled {
-  opacity: 0.8;
   cursor: not-allowed;
 }

@@ -25,7 +25,7 @@ export const Authorization = () => {
 
   sendAuthDataFx.doneData.watch((payload) => {
     if (payload.success) {
-      navigate("/personal-account");
+      navigate("/");
     }
   });
 

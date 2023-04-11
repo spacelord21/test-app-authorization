@@ -19,12 +19,17 @@ const PasswordRecoveryPage = lazy(() =>
   }))
 );
 
+const HomePage = lazy(() =>
+  import("./home").then(({ Home }) => ({ default: Home }))
+);
+
 export const Routing = () => {
   return (
     <Routes>
-      <Route path="/" element={<AuthorizationPage />} />
+      <Route path="/login" element={<AuthorizationPage />} />
       <Route path="/registration" element={<RegistrationPage />} />
       <Route path="/password-recovery" element={<PasswordRecoveryPage />} />
+      <Route path="/" element={<HomePage />} />
     </Routes>
   );
 };

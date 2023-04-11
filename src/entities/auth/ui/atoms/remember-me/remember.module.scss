@@ -1,3 +1,4 @@
+@import "theme";
 .wrapper {
   position: relative;
   display: flex;
@@ -7,7 +8,7 @@
   -moz-user-select: none; 
   -ms-user-select: none; 
   user-select: none;
-  margin-top: 16px;
+  margin-top: spacing(1);
   align-self: start;
 }
 
@@ -26,18 +27,24 @@
 .fakeCheckbox {
   height: 18px;
   width: 18px;
-  border: 2px solid #827ffe;
+  border: 2px solid map-get($map: $accent, $key: primary);
   position: relative;
-  background-color:#FFF;
+  background-color:map-get($map: $accent, $key: bgPrimary);
   border-radius:2px;
   padding:3px;
-  margin-right: 16px;
+  margin-right: spacing(1);
+  color: map-get($map: $accent, $key: primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
 }
 [type=checkbox]:checked + .fakeCheckbox:before {
-  content: '\2714';
+  content: '\2713';
   position: absolute;
-  top: -6px;
-  left: 1px;
+  // top: -6px;
+  // left: 1px;
   font-size:17px;
-  color: #827ffe;
+  color: map-get($map: $accent, $key: primary);
+  font-weight: 600;
 }

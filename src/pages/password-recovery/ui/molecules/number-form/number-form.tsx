@@ -1,6 +1,7 @@
 import { Form, References } from "@entities/auth";
 import { forgotStartFx } from "@entities/auth/model";
 import { Input, PrimaryButton } from "@shared/ui";
+import { useStore } from "effector-react";
 import { useState } from "react";
 
 type TNumberFormProps = {
@@ -9,12 +10,14 @@ type TNumberFormProps = {
 };
 
 export const NumberForm = ({ number, setNumber }: TNumberFormProps) => {
+  const isPending = useStore(forgotStartFx.pending);
   return (
     <Form
       button={
         <PrimaryButton
           content={"Продолжить"}
           onClick={() => forgotStartFx({ phone: number.replaceAll(" ", "") })}
+          disabled={isPending}
         />
       }
       inputs={[

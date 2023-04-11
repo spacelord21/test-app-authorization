@@ -1,20 +1,16 @@
 @import "theme";
 
-.wrapper {
+.container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  width: 100%;
-  margin: spacing(1) 0 spacing(1) 0;
+  height: 100vh;
+  flex-direction: column;
 }
 
 .text {
   font-size: 16px;
   color: map-get($map: $accent, $key: primary);
   line-height: 1.4;
-}
-
-.text:hover {
-  color: map-get($map: $accent, $key: secondary);
   cursor: pointer;
 }

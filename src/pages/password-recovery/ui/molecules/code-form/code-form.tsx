@@ -5,6 +5,7 @@ import { useState } from "react";
 import styles from "./code.module.scss";
 import { useTimer } from "./hooks";
 import { DEFAULT_ALERT_TIMEOUT, createAlert } from "@entities/alert";
+import { useStore } from "effector-react";
 
 type TCodeFormProps = {
   phone: string;
@@ -15,6 +16,7 @@ export const CodeForm = ({ phone }: TCodeFormProps) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const { seconds, setSeconds } = useTimer();
+  const isPending = useStore(forgotEndFx.pending);
 
   forgotStartFx.doneData.watch((payload) => {
     if (payload.success) {
@@ -50,6 +52,7 @@ export const CodeForm = ({ phone }: TCodeFormProps) => {
       placeholder="Пароль"
       setPassword={setPassword}
       password={password}
+      label="Минимальная длина пароля - 8 символов"
     />,
     <PasswordInput
       placeholder="Повторите пароль"
@@ -60,7 +63,13 @@ export const CodeForm = ({ phone }: TCodeFormProps) => {
 
   return (
     <Form
-      button={<PrimaryButton content="Восстановить" onClick={clickHandler} />}
+      button={
+        <PrimaryButton
+          content="Восстановить"
+          onClick={clickHandler}
+          disabled={isPending}
+        />
+      }
       inputs={inputs}
       title="Восстановление"
       additional={[

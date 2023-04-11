@@ -25,12 +25,10 @@ export const ChooseAvatar = () => {
       <PrimaryButton
         content={"Загрузить"}
         onClick={() => {
-          navigate("/personal-account");
+          navigate("/");
         }}
       />
-      <References
-        references={[{ link: "/personal-account", title: "Пропустить" }]}
-      />
+      <References references={[{ link: "/", title: "Пропустить" }]} />
     </div>
   );
 };

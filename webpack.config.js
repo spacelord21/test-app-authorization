@@ -14,7 +14,7 @@ module.exports = {
   },
   plugins: 
   [
-    new HTMLWebpackPlugin({template:'./public/index.html', favicon: './public/favicon.ico'}),
+    new HTMLWebpackPlugin({template:'./public/index.html', favicon: './public/favicon-32x32.png'}),
     new CleanWebpackPlugin(),
     new SourceMapDevToolPlugin({filename: "[file].map"})
   ],

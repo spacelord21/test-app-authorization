@@ -48,7 +48,11 @@ export const FormTemplate = () => {
       type="text"
       isPhone={true}
     />,
-    <PasswordInput password={password} setPassword={setPassword} />,
+    <PasswordInput
+      password={password}
+      setPassword={setPassword}
+      label="Минимальная длина пароля - 8 символов"
+    />,
   ];
 
   return (

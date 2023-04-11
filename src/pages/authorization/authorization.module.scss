@@ -1,21 +1,16 @@
 @import "theme";
 
 .wrapper {
-  background-color: $color;
+  background-color: map-get($map: $accent, $key: bgPrimary);
   height: 100vh;
   width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column
 }
 
 .formWrapper {
-  box-shadow: 0 5px 10px 0 rgb(0 0 0 / 10%);
-  -moz-box-shadow: 0 5px 10px 0 rgba(0,0,0,.1);
-  -webkit-box-shadow: 0 5px 10px 0 rgb(0 0 0 / 10%);
-  -o-box-shadow: 0 5px 10px 0 rgba(0,0,0,.1);
-  -ms-box-shadow: 0 5px 10px 0 rgba(0,0,0,.1);
-  padding: 64px 32px 64px 32px;
-  border-radius: 10px;
+  @extend .shadow;
 }
 

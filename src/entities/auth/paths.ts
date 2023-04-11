@@ -17,4 +17,8 @@ export const paths = {
     method: "POST",
     path: AUTH_URL + "/api/user/forgot-end",
   },
+  userInfo: {
+    method: "GET",
+    path: AUTH_URL + "/api/user",
+  },
 };
