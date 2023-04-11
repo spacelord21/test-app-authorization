@@ -7,6 +7,7 @@ import {
   TForgotStartResponse,
 } from "@entities/auth/types";
 import { createEffect } from "effector";
+import { setToken } from "../authorization";
 
 export const forgotStartFx = createEffect<
   TForgotStart,
@@ -46,5 +47,7 @@ forgotEndFx.doneData.watch((payload) => {
           timeout: DEFAULT_ALERT_TIMEOUT,
           type: "ERROR",
         });
+  } else {
+    setToken(payload.token!);
   }
 });

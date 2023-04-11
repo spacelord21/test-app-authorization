@@ -1,4 +1,4 @@
-import { Form, PasswordInput } from "@entities/auth";
+import { Form, PasswordInput, References } from "@entities/auth";
 import { forgotEndFx, forgotStartFx } from "@entities/auth/model";
 import { Input, PrimaryButton } from "@shared/ui";
 import { useState } from "react";
@@ -76,6 +76,14 @@ export const CodeForm = ({ phone }: TCodeFormProps) => {
             : "Отправить код повторно"}
         </button>,
       ]}
+      references={
+        <References
+          references={[
+            { link: "/", title: "Вспомнил пароль!" },
+            { link: "/registration", title: "Регистрация" },
+          ]}
+        />
+      }
     />
   );
 };
