@@ -3,10 +3,11 @@
 <ul>
   <li>приложение написано на <i>React, TypeScript</i>;</li>
   <li>сборщик модулей - <i>wepback</i>;</li>
-  <li>стейт менеджер - <i>effector</i> (для быстрого и удобного персиста - <i>effector-storage</i>);</li>
+  <li>стейт менеджер - <i>redux</i>;</li>
   <li><i>api</i> запросы выполнены с помощью обычного fetch;</li> 
   <li>стилизация выполнена с помощью <i>scss, atomic design;</i>, </li>
   <li>структура файлов и папок - <i>feature sliced</i> архитектура;</li>
+  <li>работа с формами и их персист - <i>react hook form</i>;</li>
 </ul>
 <h3>В проекте реализованы:</h3>
 <ul>
