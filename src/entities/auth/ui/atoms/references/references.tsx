@@ -21,7 +21,9 @@ export const References = ({ references }: TReferencesProps) => {
         <span
           className={styles.text}
           key={index}
-          onClick={() => navigate(item.link)}
+          onClick={() => {
+            navigate(item.link);
+          }}
         >
           {item.title}
         </span>

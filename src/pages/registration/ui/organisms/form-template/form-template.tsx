@@ -1,57 +1,78 @@
+import { useAppDispatch } from "@app/store";
 import { $alerts } from "@entities/alert";
 import { Form, PasswordInput, References } from "@entities/auth";
-import {
-  $firstName,
-  $lastName,
-  $registNumber,
-  $registPassword,
-  sendRegist,
-  sendRegistFx,
-  setFirstName,
-  setLastName,
-  setNumber,
-  setPassword,
-} from "@entities/auth/model/registration";
+import { signIn } from "@entities/auth/api";
+import { registState } from "@entities/auth/model/registration";
 import { Input, PrimaryButton } from "@shared/ui";
 import { useStore } from "effector-react";
+import { Controller, useForm } from "react-hook-form";
+import useFormPersist from "react-hook-form-persist";
+
+type FormData = {
+  firstName: string;
+  lastName: string;
+  phone: string;
+  password: string;
+};
+
+const references = [{ link: "/login", title: "Авторизация" }];
 
 export const FormTemplate = () => {
-  const isPending = useStore(sendRegistFx.pending);
-  const password = useStore($registPassword);
-  const number = useStore($registNumber);
-  const firstName = useStore($firstName);
-  const lastName = useStore($lastName);
   const alerts = useStore($alerts);
+  const dispatch = useAppDispatch();
+  const { loading } = registState();
+  const { register, handleSubmit, watch, setValue, control, getValues } =
+    useForm<Required<FormData>>({
+      defaultValues: {
+        firstName: "",
+        lastName: "",
+        password: "",
+        phone: "",
+      },
+    });
+  useFormPersist("registData", {
+    watch,
+    setValue,
+  });
 
-  const onClickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    sendRegist();
-  };
+  const onSubmit = handleSubmit((data) => {
+    dispatch(signIn({ ...data, phone: data.phone.replaceAll(" ", "") }));
+  });
 
   const inputs = [
     <Input
       placeholder="Имя"
-      setValue={setFirstName}
       type="text"
-      value={firstName}
+      {...register("firstName", {
+        onChange: (e) => setValue("firstName", e.target.value),
+      })}
     />,
     <Input
       placeholder="Фамилия"
-      setValue={setLastName}
       type="text"
-      value={lastName}
+      {...register("lastName", {
+        onChange: (e) => setValue("lastName", e.target.value),
+      })}
     />,
     <Input
+      value={getValues().phone}
       placeholder="Номер"
-      setValue={setNumber}
-      value={number}
       type="text"
       isPhone={true}
+      {...register("phone", {
+        onChange: (e) => setValue("phone", e.target.value),
+      })}
     />,
-    <PasswordInput
-      password={password}
-      setPassword={setPassword}
-      label="Минимальная длина пароля - 8 символов"
+    <Controller
+      control={control}
+      name="password"
+      render={({ field }) => (
+        <PasswordInput
+          label="Минимальная длина пароля - 8 символов"
+          value={field.value}
+          onChange={(e) => field.onChange(e)}
+        />
+      )}
     />,
   ];
 
@@ -60,15 +81,14 @@ export const FormTemplate = () => {
       button={
         <PrimaryButton
           content={"Зарегистрироваться"}
-          onClick={onClickHandler}
-          disabled={isPending || alerts.length > 0}
+          onClick={onSubmit}
+          disabled={loading || alerts.length > 0}
+          loading={loading}
         />
       }
       inputs={inputs}
       title="Регистрация"
-      references={
-        <References references={[{ link: "/", title: "Авторизация" }]} />
-      }
+      references={<References references={references} />}
     />
   );
 };

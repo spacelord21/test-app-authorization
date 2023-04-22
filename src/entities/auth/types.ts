@@ -45,3 +45,10 @@ export type TForgotEnd = {
 export type TForgotEndResponse = TForgotStartResponse & { token?: string };
 
 export type TUserInfo = TRegistUser;
+export type TUser = {
+  id: number;
+  phone: string;
+  firstName: string;
+  lastName: string;
+  token: string;
+};

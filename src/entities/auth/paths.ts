@@ -1,4 +1,6 @@
 const AUTH_URL = "https://backend-front-test.dev.echo-company.ru";
+export const DEFAULT_ERROR_MESSAGE =
+  "Произошла ошибка, пожалуйста, повторите еще раз.";
 
 export const paths = {
   login: {

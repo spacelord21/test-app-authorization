@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import styles from "./button.module.scss";
+import { Loader } from "../loader";
 
 type TPrimaryButtonProps = {
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
@@ -7,6 +8,7 @@ type TPrimaryButtonProps = {
   disabled?: boolean;
   onMouseEnter?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   onMouseLeave?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  loading?: boolean;
 };
 
 export const PrimaryButton = ({
@@ -15,6 +17,7 @@ export const PrimaryButton = ({
   disabled,
   onMouseEnter,
   onMouseLeave,
+  loading,
 }: TPrimaryButtonProps) => {
   return (
     <div className={styles.wrapper}>
@@ -26,7 +29,7 @@ export const PrimaryButton = ({
         className={styles.button}
         disabled={disabled}
       >
-        {content}
+        {loading ? <Loader color="white" /> : content}
       </button>
     </div>
   );

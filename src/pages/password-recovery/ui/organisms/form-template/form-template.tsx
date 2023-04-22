@@ -1,26 +1,21 @@
-import { forgotEndFx, forgotStartFx } from "@entities/auth/model";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { CodeForm, NumberForm } from "../../molecules";
+import { passwordRecoveryState } from "@entities/auth/model";
 
 export const FormTemplate = () => {
   const [number, setNumber] = useState("");
-  const [firstStageSuccess, setFirstStageSuccess] = useState(false);
-  const navigate = useNavigate();
+  const { startSuccess } = passwordRecoveryState();
 
-  forgotStartFx.doneData.watch((payload) => {
-    if (payload.success) setFirstStageSuccess(true);
-  });
-  forgotEndFx.doneData.watch((payload) => {
-    if (payload.success) {
-      navigate("/");
-    }
-  });
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    setNumber(e.target.value);
+  };
 
-  const actualForm = firstStageSuccess ? (
+  const actualForm = startSuccess ? (
     <CodeForm phone={number.replaceAll(" ", "")} />
   ) : (
-    <NumberForm number={number} setNumber={setNumber} />
+    <NumberForm number={number} setNumber={onChangeHandler} />
   );
 
   return actualForm;

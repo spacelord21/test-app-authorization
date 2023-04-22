@@ -1,21 +1,29 @@
-import { $token, $user, clearSession, getUserInfoFx } from "@entities/auth";
-import { useStore } from "effector-react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import styles from "./home.module.scss";
+import { getUser, logout } from "@entities/auth/model";
+import { DEFAULT_ALERT_TIMEOUT, createAlert } from "@entities/alert";
+import { useAppDispatch } from "@app/store";
 
 export const Home = () => {
-  const user = useStore($user);
-  const token = useStore($token);
   const navigate = useNavigate();
+  const user = getUser();
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
-    if (!token) navigate("/login");
-    getUserInfoFx(token);
+    if (!user.token) {
+      createAlert({
+        message: "Пожалуйста, авторизуйтесь!",
+        timeout: DEFAULT_ALERT_TIMEOUT,
+        type: "WARNING",
+      });
+      navigate("/login");
+    }
   }, []);
 
   const exitHandler = (e: React.MouseEvent<HTMLSpanElement>) => {
     e.preventDefault();
-    clearSession();
+    dispatch(logout());
     navigate("/login");
   };
 

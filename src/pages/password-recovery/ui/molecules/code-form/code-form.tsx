@@ -1,73 +1,118 @@
 import { Form, PasswordInput, References } from "@entities/auth";
-import { forgotEndFx, forgotStartFx } from "@entities/auth/model";
 import { Input, PrimaryButton } from "@shared/ui";
-import { useState } from "react";
 import styles from "./code.module.scss";
 import { useTimer } from "./hooks";
+import { useAppDispatch } from "@app/store";
+import { forgotEnd, forgotStart } from "@entities/auth/api";
+import { getUser, passwordRecoveryState } from "@entities/auth/model";
+import { Controller, useForm } from "react-hook-form";
 import { DEFAULT_ALERT_TIMEOUT, createAlert } from "@entities/alert";
-import { useStore } from "effector-react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router";
+
+const references = [
+  { link: "/login", title: "Вспомнил пароль!" },
+  { link: "/registration", title: "Регистрация" },
+];
 
 type TCodeFormProps = {
   phone: string;
 };
+type FormData = {
+  code: string;
+  password: string;
+  confirmPassword: string;
+};
 
 export const CodeForm = ({ phone }: TCodeFormProps) => {
-  const [code, setCode] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const navigate = useNavigate();
   const { seconds, setSeconds } = useTimer();
-  const isPending = useStore(forgotEndFx.pending);
-
-  forgotStartFx.doneData.watch((payload) => {
-    if (payload.success) {
-      setSeconds(20);
-    }
+  const { register, handleSubmit, setValue, control } = useForm<
+    Required<FormData>
+  >({
+    defaultValues: {
+      code: "",
+      confirmPassword: "",
+      password: "",
+    },
   });
+  const { loading } = passwordRecoveryState();
+  const { token } = getUser();
+  const dispatch = useAppDispatch();
 
-  const clickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    if (password !== confirmPassword) {
-      createAlert({
-        message: "Пароли не совпадают. Пожалуйста, попробуйте еще раз.",
-        timeout: DEFAULT_ALERT_TIMEOUT,
-        type: "ERROR",
-      });
+  useEffect(() => {
+    if (token) {
+      navigate("/");
+    }
+  }, [token]);
+
+  const onSubmit = handleSubmit((data) => {
+    if (data.password === data.confirmPassword) {
+      dispatch(
+        forgotEnd({
+          phone: phone.replaceAll(" ", ""),
+          ...data,
+        })
+      );
       return;
     }
-    forgotEndFx({
-      code: code,
-      password: password,
-      phone: phone,
+    createAlert({
+      message: "Пароли не совпадают!",
+      timeout: DEFAULT_ALERT_TIMEOUT,
+      type: "ERROR",
     });
-  };
+  });
 
   const inputs = [
     <Input
       placeholder="Код из СМС"
-      setValue={setCode}
-      type="text"
-      value={code}
+      {...(register("code"),
+      {
+        onChange: (e) => setValue("code", e.target.value),
+      })}
     />,
-    <PasswordInput
-      placeholder="Пароль"
-      setPassword={setPassword}
-      password={password}
-      label="Минимальная длина пароля - 8 символов"
+    <Controller
+      control={control}
+      name="password"
+      render={({ field }) => (
+        <PasswordInput
+          label="Минимальная длина пароля - 8 символов"
+          value={field.value}
+          onChange={(e) => field.onChange(e)}
+        />
+      )}
     />,
-    <PasswordInput
-      placeholder="Повторите пароль"
-      setPassword={setConfirmPassword}
-      password={confirmPassword}
+    <Controller
+      control={control}
+      name="confirmPassword"
+      render={({ field }) => (
+        <PasswordInput
+          value={field.value}
+          onChange={(e) => field.onChange(e)}
+        />
+      )}
     />,
   ];
+
+  const updateCode = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    dispatch(forgotStart({ phone: phone.replaceAll(" ", "") }));
+    setSeconds(20);
+  };
+
+  const buttonContent =
+    seconds !== 0
+      ? `Повторно отправить код можно будет через ${seconds} секунд`
+      : "Отправить код повторно";
 
   return (
     <Form
       button={
         <PrimaryButton
           content="Восстановить"
-          onClick={clickHandler}
-          disabled={isPending}
+          onClick={onSubmit}
+          disabled={loading}
+          loading={loading}
         />
       }
       inputs={inputs}
@@ -75,24 +120,14 @@ export const CodeForm = ({ phone }: TCodeFormProps) => {
       additional={[
         <button
           className={styles.timer}
-          onClick={() => {
-            forgotStartFx({ phone: phone });
-          }}
+          onClick={updateCode}
           disabled={seconds !== 0}
+          key={styles.timer}
         >
-          {seconds !== 0
-            ? `Повторно отправить код можно будет через ${seconds} секунд`
-            : "Отправить код повторно"}
+          {buttonContent}
         </button>,
       ]}
-      references={
-        <References
-          references={[
-            { link: "/", title: "Вспомнил пароль!" },
-            { link: "/registration", title: "Регистрация" },
-          ]}
-        />
-      }
+      references={<References references={references} />}
     />
   );
 };

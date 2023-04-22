@@ -1,24 +1,33 @@
-import { paths } from "@entities/auth/paths";
-import { TUserInfo } from "@entities/auth/types";
+import { DEFAULT_ERROR_MESSAGE, paths } from "@entities/auth/paths";
+import { TUser } from "@entities/auth/types";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const userInfo = async (token: string): Promise<TUserInfo> => {
-  return await fetch(paths.userInfo.path, {
+type TUserModel = Pick<TUser, "id" | "phone"> & {
+  first_name: string;
+  last_name: string;
+  token: string;
+};
+
+export const userInfo = createAsyncThunk<
+  TUser,
+  string,
+  { rejectValue: string }
+>("userInfo", async (token, { rejectWithValue }) => {
+  const response = await fetch(paths.userInfo.path, {
+    method: paths.userInfo.method,
     headers: {
       "Content-Type": "application/json",
       Authorization: token,
     },
-    method: paths.userInfo.method,
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      return {
-        firstName: data.first_name,
-        lastName: data.last_name,
-        password: data.password,
-        phone: data.phone,
-      };
-    })
-    .catch((error: Error) => {
-      throw error;
-    });
-};
+  });
+  if (!response.ok) {
+    return rejectWithValue(DEFAULT_ERROR_MESSAGE);
+  }
+  const result: TUserModel = await response.json();
+  return {
+    ...result,
+    firstName: result.first_name,
+    lastName: result.last_name,
+    token: token,
+  };
+});

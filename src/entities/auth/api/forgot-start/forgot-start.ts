@@ -1,18 +1,22 @@
 import { paths } from "@entities/auth/paths";
 import { TForgotStart, TForgotStartResponse } from "@entities/auth/types";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const forgotStart = async (
-  params: TForgotStart
-): Promise<TForgotStartResponse> => {
-  return await fetch(paths.forgotStart.path, {
-    body: JSON.stringify(params),
+export const forgotStart = createAsyncThunk<
+  TForgotStartResponse,
+  TForgotStart,
+  { rejectValue: Omit<TForgotStartResponse, "success"> }
+>("forgotStart", async (params, thunkApi) => {
+  const response = await fetch(paths.forgotStart.path, {
     method: paths.forgotStart.method,
+    body: JSON.stringify(params),
     headers: {
       "Content-Type": "application/json",
     },
-  })
-    .then((res) => res.json())
-    .catch((error: Error) => {
-      throw error;
-    });
-};
+  });
+  const result: TForgotStartResponse = await response.json();
+  if (!result.success) {
+    return thunkApi.rejectWithValue(result);
+  }
+  return result;
+});

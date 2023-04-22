@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styles from "./dropzone.module.scss";
 import { Avatar } from "../../atoms";
 import classNames from "classnames/bind";
