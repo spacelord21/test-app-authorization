@@ -1,10 +1,14 @@
 import { paths } from "@entities/auth/paths";
 import { TRegistResponse, TRegistUser } from "@entities/auth/types";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { userInfo } from "../user-info";
 
-export const signIn = async (
-  registParams: TRegistUser
-): Promise<TRegistResponse> => {
-  return await fetch(paths.signin.path, {
+export const signIn = createAsyncThunk<
+  TRegistResponse,
+  TRegistUser,
+  { rejectValue: TRegistResponse }
+>("registration", async (registParams, thunkAPI) => {
+  const response = await fetch(paths.signin.path, {
     method: paths.signin.method,
     headers: {
       "Content-Type": "application/json",
@@ -15,9 +19,11 @@ export const signIn = async (
       first_name: registParams.firstName,
       last_name: registParams.lastName,
     }),
-  })
-    .then((res) => res.json())
-    .catch((error: Error) => {
-      throw error;
-    });
-};
+  });
+  const result: TRegistResponse = await response.json();
+  if (!result.success) {
+    return thunkAPI.rejectWithValue(result);
+  }
+  thunkAPI.dispatch(userInfo(result.token!));
+  return result;
+});

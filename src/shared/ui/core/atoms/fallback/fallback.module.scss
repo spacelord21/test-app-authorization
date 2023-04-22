@@ -1,0 +1,10 @@
+@import "theme";
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: map-get($map: $accent, $key: bgPrimary);
+}

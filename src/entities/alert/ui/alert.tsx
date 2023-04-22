@@ -1,16 +1,16 @@
-import { useStore } from "effector-react";
-import { $alerts, removeAlert } from "../model";
 import styles from "./alert.module.scss";
-import classNames from "classnames/bind";
 import { Icon } from "@iconify/react";
 import { useEffect, useRef } from "react";
+import { useStore } from "effector-react";
+import { $alerts, removeAlert } from "../model";
 
 let timeout: ReturnType<typeof setTimeout>;
 let defaultTimeout = 500;
 
 export const Alert = () => {
-  const alerts = useStore($alerts);
   const alertRef = useRef<HTMLDivElement>(null);
+  const alerts = useStore($alerts);
+
   const className =
     alerts.length > 0
       ? alerts[0].type === "ERROR"

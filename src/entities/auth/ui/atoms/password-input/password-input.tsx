@@ -1,48 +1,42 @@
-import { useState } from "react";
+import { InputHTMLAttributes, useState } from "react";
 import styles from "./password.module.scss";
 import { PasswordEye } from "@features/password-eye";
-import { Event } from "effector";
+import React from "react";
 
-type TPassInputProps = {
-  password: string;
-  setPassword: Event<string> | ((value: string) => void);
-  placeholder?: string;
+interface TPassInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
-};
+  value?: string;
+}
 
-export const PasswordInput = ({
-  password,
-  setPassword,
-  placeholder,
-  label,
-}: TPassInputProps) => {
-  const [passwordType, setPasswordType] = useState<"password" | "text">(
-    "password"
-  );
-
-  const onCnahgeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setPassword(e.target.value);
-  };
-
-  return (
-    <div className={styles.wrapperInput}>
-      {label && password.length < 8 ? (
-        <span className={styles.labelInput}>*{label}</span>
-      ) : null}
-      <div className={styles.container}>
-        <input
-          className={styles.input}
-          type={passwordType}
-          value={password}
-          onChange={onCnahgeHandler}
-          placeholder={placeholder ?? "Пароль"}
-        />
-        {password ? (
-          <PasswordEye setType={setPasswordType} type={passwordType} />
+export const PasswordInput = React.forwardRef(
+  (
+    { value, onChange, placeholder, label, name }: TPassInputProps,
+    ref: React.Ref<HTMLInputElement>
+  ) => {
+    const [passwordType, setPasswordType] = useState<"password" | "text">(
+      "password"
+    );
+    return (
+      <div className={styles.wrapperInput}>
+        {label && value!.length < 8 ? (
+          <span className={styles.labelInput}>*{label}</span>
         ) : null}
-        <span className={styles.border}></span>
+        <div className={styles.container}>
+          <input
+            className={styles.input}
+            type={passwordType}
+            value={value}
+            onChange={onChange}
+            placeholder={placeholder ?? "Пароль"}
+            name={name}
+            ref={ref}
+          />
+          {value ? (
+            <PasswordEye setType={setPasswordType} type={passwordType} />
+          ) : null}
+          <span className={styles.border}></span>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+);

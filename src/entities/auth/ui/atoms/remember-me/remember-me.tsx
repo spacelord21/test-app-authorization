@@ -1,13 +1,17 @@
-import { useStore } from "effector-react";
 import styles from "./remember.module.scss";
-import { $rememberMe } from "@entities/auth/model/authorization";
+import { InputHTMLAttributes } from "react";
 
-export const RememberMe = () => {
-  const rememberMe = useStore($rememberMe);
+interface TRememberMeProps extends InputHTMLAttributes<HTMLInputElement> {}
+
+export const RememberMe = ({ onChange }: TRememberMeProps) => {
   return (
     <div className={styles.wrapper}>
       <label className={styles.label}>
-        <input type="checkbox" className={styles.checkbox} />
+        <input
+          type="checkbox"
+          className={styles.checkbox}
+          onChange={onChange}
+        />
         <span className={styles.fakeCheckbox}></span>
         Запомнить меня
       </label>
