@@ -25,3 +25,25 @@
   <li>команда для сборки <i>npm run build</i>;</li>
   <li>команда для локального запуска <i>npm start</i>;</li>
 </ul>
+
+## Техническое задание
+<img src="/assets/task1.png"/>
+<img src="/assets/task2.png"/>
+<img src="/assets/task3.png"/>
+<img src="/assets/task4.png"/>
+
+## Скриншоты с проекта
+
+<img src="/assets/work/1.png"/>
+<img src="/assets/work/2.png"/>
+<img src="/assets/work/3.png"/>
+<img src="/assets/work/4.png"/>
+<img src="/assets/work/5.png"/>
+<img src="/assets/work/6.png"/>
+<img src="/assets/work/7.png"/>
+<img src="/assets/work/8.png"/>
+<img src="/assets/work/9.png"/>
+<img src="/assets/work/10.png"/>
+<img src="/assets/work/11.png"/>
+<img src="/assets/work/12.png"/>
+<img src="/assets/work/13.png"/>
